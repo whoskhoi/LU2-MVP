@@ -18,9 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-        script: |
-          cd backend/
-
+      - name: Swap Directory
+        run: cd backend  
 
 
       - name: Set up .NET Core
