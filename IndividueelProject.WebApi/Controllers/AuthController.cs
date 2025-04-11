@@ -1,25 +1,28 @@
-﻿/*
-using System;
-using System.Linq;
-using System.Web.Http;
-// using IndividueelProject.Models;
-// using IndividueelProject.Utilities;
-using System.Net;
-using System.Net.Http;
+﻿using System.Data;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
+using IndividueelProject.WebApi.Models;
 
 
 namespace IndividueelProject.WebApi.Controllers
 {
-    [RoutePrefix("api/auth")]
-    public class AuthController : ApiController
+    [Route("api/auth")]
+    [ApiController]
+    public class AuthController : ControllerBase
     {
-        private readonly ApplicationDbContext _context = new ApplicationDbContext();
+        private readonly IDbConnection dbConnection;
+        public AuthController(IDbConnection _dbConnection)
+        {
+            dbConnection = _dbConnection;
+        }
 
-        [HTTPPost]
+        [HttpPost]
         [Route("register")]
+        public ActionResult Register([FromBody]UserModel model)
+        {
+            var sqlquery = "INSERT INTO Users (Email, Password) VALUES (@Email, @Password);";
+            dbConnection.Execute(sqlquery, model);
+            return Ok("Registration succesful");
+        }    
     }
 }
-*/
