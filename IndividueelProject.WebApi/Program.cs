@@ -22,7 +22,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Configuration.AddUserSecrets<Program>();
 builder.Services.AddSingleton<IDbConnection>(sp =>
-    new SqlConnection(builder.Configuration.GetConnectionString("SqlConnectionString")));
+    new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
