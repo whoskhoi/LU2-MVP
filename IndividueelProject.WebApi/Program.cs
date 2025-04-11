@@ -1,3 +1,7 @@
+using System.Data;
+using Microsoft.Data.SqlClient;
+using Dapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Configuration.AddUserSecrets<Program>();
+builder.Services.AddSingleton<IDbConnection>(sp =>
+    new SqlConnection(builder.Configuration.GetConnectionString("SqlConnectionString")));
+
 
 var app = builder.Build();
 
