@@ -22,3 +22,4 @@ namespace IndividueelProject.WebApi.Controllers
         [Route("register")]
     }
 }
+*/
