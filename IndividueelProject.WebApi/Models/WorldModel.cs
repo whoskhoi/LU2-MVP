@@ -2,16 +2,15 @@
 
 namespace IndividueelProject.WebApi.Models
 {
-    public class UserModel
+    public class WorldModel
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        public int OwnerId { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        public string Name { get; set; }
     }
 }
