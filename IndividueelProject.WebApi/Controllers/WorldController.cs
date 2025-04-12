@@ -45,14 +45,22 @@ namespace IndividueelProject.WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var world = new WorldModel
+            try
             {
-                Name = worldDto.Name
-            };
 
-            worldRepo.CreateWorld(world);
-            return Ok(new { message = "World created" });
 
+                var world = new WorldModel
+                {
+                    Name = worldDto.Name
+                };
+
+                worldRepo.CreateWorld(world);
+                return Ok(new { message = "World created" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occured while creating the world." + ex);
+            }
         }
 
         // PUT api/world/5 (id)
