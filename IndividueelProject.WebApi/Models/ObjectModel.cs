@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace IndividueelProject.WebApi.Models
 {
-    public class ObjectsModel
+    public class ObjectModel
     {
         [Key]
         public int Id { get; set; }
