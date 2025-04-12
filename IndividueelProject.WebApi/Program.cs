@@ -2,13 +2,13 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using Microsoft.OpenApi.Models;
+using IndividueelProject.WebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -23,6 +23,13 @@ builder.Services.AddSwaggerGen(c =>
 builder.Configuration.AddUserSecrets<Program>();
 builder.Services.AddSingleton<IDbConnection>(sp =>
     new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<UserRepository>();
+builder.Services.AddSingleton<ObjectRepository>();
+builder.Services.AddSingleton<WorldRepository>();
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
 
 var app = builder.Build();

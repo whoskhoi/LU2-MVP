@@ -57,7 +57,7 @@ namespace IndividueelProject.WebApi.Controllers
 
         // PUT api/world/5 (id)
         [HttpPut("{id}")]
-        public ActionResult Update(int id [FromBody] CreateUpdateWorldDto worldDto)
+        public ActionResult Update(int id, [FromBody] CreateUpdateWorldDto worldDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
