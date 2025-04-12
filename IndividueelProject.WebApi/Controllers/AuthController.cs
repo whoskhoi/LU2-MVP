@@ -26,23 +26,29 @@ namespace IndividueelProject.WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-
-            // check if email is taken
-            var existingEmail = userRepo.GetByEmail(registerDto.Email);
-            if (existingEmail != null)
-                return Conflict(new { message = "Email is already taken" });
-
-            // password hashing
-            var hashPassword = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
-
-            var user = new UserModel
+            try
             {
-                Email = registerDto.Email,
-                PasswordHash = hashPassword
-            };
+                // check if email is taken
+                var existingEmail = userRepo.GetByEmail(registerDto.Email);
+                if (existingEmail != null)
+                    return Conflict(new { message = "Email is already taken" });
 
-            userRepo.CreateUser(user);
-                return Ok(new { message = "Registration succesful"});
+                // password hashing
+                var hashPassword = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
+
+                var user = new UserModel
+                {
+                    Email = registerDto.Email,
+                    PasswordHash = hashPassword
+                };
+
+                userRepo.CreateUser(user);
+                return Ok(new { message = "Registration succesful" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while creating the world.");
+            }
         }
 
         // POST api/auth/login
