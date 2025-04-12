@@ -64,6 +64,7 @@ namespace IndividueelProject.WebApi.Controllers
             return Ok(new { message = "Login succesful" });
         }
 
+        
 
     }
 }
