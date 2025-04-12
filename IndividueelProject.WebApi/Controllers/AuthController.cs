@@ -52,8 +52,18 @@ namespace IndividueelProject.WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var existingEmail = userRepo.GetByEmail(loginDto.Email);
+            var email = userRepo.GetByEmail(loginDto.Email);
+            if (email == null)
+                return Unauthorized( new { message = "Invalid credentials" });
+
+
+            bool isValidPassword = BCrypt.Net.BCrypt.Verify(loginDto.Password, email.PasswordHash);
+            if (!isValidPassword)
+                return Unauthorized(new { message = "Invalid credentials" });
+
+            return Ok(new { message = "Login succesful" });
         }
+
 
     }
 }
