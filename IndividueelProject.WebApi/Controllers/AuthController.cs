@@ -2,6 +2,9 @@
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using IndividueelProject.WebApi.Models;
+using IndividueelProject.WebApi.Dtos;
+using IndividueelProject.WebApi.Repositories;
+using BCrypt.Net;
 
 
 namespace IndividueelProject.WebApi.Controllers
@@ -10,28 +13,46 @@ namespace IndividueelProject.WebApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IDbConnection dbConnection;
-        public AuthController(IDbConnection _dbConnection)
+        private readonly UserRepository userRepo;
+        public AuthController(UserRepository _userRepo)
         {
-            dbConnection = _dbConnection;
+            userRepo = _userRepo;
         }
 
-        [HttpPost]
-        [Route("register")]
-        public ActionResult Register([FromBody]UserModel model)
+        // POST /api/auth/register
+        [HttpPost("register")]
+        public ActionResult Register([FromBody] RegisterUserDto registerDto)
         {
-            var sqlquery = "INSERT INTO Users (Email, PasswordHash) VALUES (@Email, @PasswordHash);";
-            dbConnection.Execute(sqlquery, model);
-            return Ok("Registration succesful");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
+            // check if email is taken
+            var existingEmail = userRepo.GetByEmail(registerDto.Email);
+            if (existingEmail != null)
+                return Conflict(new { message = "Email is already taken" });
+
+            // password hashing
+            var hashPassword = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
+
+            var user = new UserModel
+            {
+                Email = registerDto.Email,
+                PasswordHash = hashPassword
+            };
+
+            userRepo.CreateUser(user);
+                return Ok(new { message = "Registration succesful"});
         }
 
-        [HttpPost]
-        [Route("login")]
-        public ActionResult Login([FromBody]UserModel model)
+        // POST api/auth/login
+        [HttpPost("login")]
+        public ActionResult Login([FromBody] LoginUserDto loginDto)
         {
-            var sqlquery = "SELECT Id, PasswordHash FROM Users WHERE Email = @Email;";
-            dbConnection.Execute(sqlquery, model);
-            return Ok("Login succesful");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var existingEmail = userRepo.GetByEmail(loginDto.Email);
         }
 
     }
