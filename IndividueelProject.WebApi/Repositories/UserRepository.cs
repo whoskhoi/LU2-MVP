@@ -26,5 +26,11 @@ namespace IndividueelProject.WebApi.Repositories
             var sqlquery = "SELECT * FROM Users WHERE Email = @Email;";
             return dbConnection.QueryFirstOrDefault<UserModel>(sqlquery, new { Email = email });
         }
+
+        public UserModel? GetById(int id)
+        {
+            var sqlquery = "SELECT * FROM Users WHERE Id = @Id;";
+            return dbConnection.QueryFirstOrDefault<UserModel>(sqlquery, new { Id = id });
+        }
     }
 }

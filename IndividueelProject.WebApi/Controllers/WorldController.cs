@@ -14,9 +14,11 @@ namespace IndividueelProject.WebApi.Controllers
     public class WorldController : ControllerBase
     {
         private readonly WorldRepository worldRepo;
-        public WorldController(WorldRepository _worldRepo)
+        private readonly UserRepository userRepo;
+        public WorldController(WorldRepository _worldRepo, UserRepository _userRepo)
         {
             worldRepo = _worldRepo;
+            userRepo = _userRepo;
         }
 
         // GET api/world
@@ -48,11 +50,15 @@ namespace IndividueelProject.WebApi.Controllers
             try
             {
 
+                var owner = userRepo.GetById(worldDto.OwnerId); 
+                if (owner == null)
+                    return BadRequest("Invalid owner");
+
 
                 var world = new WorldModel
                 {
                     Name = worldDto.Name,
-                    OwnerId= worldDto.OwnerId
+                    OwnerId = owner.Id
                 };
 
                 worldRepo.CreateWorld(world);
