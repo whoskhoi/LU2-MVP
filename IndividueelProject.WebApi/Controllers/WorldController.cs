@@ -51,7 +51,8 @@ namespace IndividueelProject.WebApi.Controllers
 
                 var world = new WorldModel
                 {
-                    Name = worldDto.Name
+                    Name = worldDto.Name,
+                    OwnerId= worldDto.OwnerId
                 };
 
                 worldRepo.CreateWorld(world);

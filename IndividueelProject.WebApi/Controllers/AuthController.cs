@@ -5,6 +5,7 @@ using IndividueelProject.WebApi.Models;
 using IndividueelProject.WebApi.Dtos;
 using IndividueelProject.WebApi.Repositories;
 using BCrypt.Net;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 
 namespace IndividueelProject.WebApi.Controllers
@@ -67,7 +68,7 @@ namespace IndividueelProject.WebApi.Controllers
             if (!isValidPassword)
                 return Unauthorized(new { message = "Invalid credentials" });
 
-            return Ok(new { message = "Login succesful" });
+            return Ok(new { message = "Login succesful", userId = email.Id });
         }
 
         
