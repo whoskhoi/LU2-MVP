@@ -29,10 +29,10 @@ namespace IndividueelProject.WebApi.Controllers
             try
             {
                 // check if email is taken
-                var existingEmail = userRepo.GetByEmail(registerDto.Email);
+               /* var existingEmail = userRepo.GetByEmail(registerDto.Email);
                 if (existingEmail != null)
                     return Conflict(new { message = "Email is already taken" });
-
+               */
                 // password hashing
                 var hashPassword = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
 
