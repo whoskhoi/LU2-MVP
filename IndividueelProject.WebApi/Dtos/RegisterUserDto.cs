@@ -10,10 +10,10 @@ namespace IndividueelProject.WebApi.Dtos
 
 
         [Required]
-        /* [RegularExpression(
-            "^(?=.[A-Z])(?=.[a-z])(?=.\\d)(?=.[!@#$%^&()_+\\-=])[A-Za-z\\d!@#$%^&()_+\\-=]{10,}$",
-            ErrorMessage = "Password must be at least 10 characters, contain uppercase, lowercase, digit, and special character."
-        )] */ 
+        [RegularExpression(
+             @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=])[A-Za-z\d!@#$%^&*()_\-+=]{10,}$",
+                ErrorMessage = "Password must be at least 10 characters, and include uppercase, lowercase, number, and special character."
+        )]
         public string Password { get; set; } = null!;
     }
 }
