@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [Header("Settings")]
+    public bool isDraggable = true; // Toggle via Inspector if needed
+
     private RectTransform _rectTransform;
     private CanvasGroup _canvasGroup;
 
@@ -10,35 +13,35 @@ public class DraggableObject : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         _rectTransform = GetComponent<RectTransform>();
         _canvasGroup = GetComponent<CanvasGroup>();
-
-        // Auto-add CanvasGroup if missing
         if (_canvasGroup == null)
             _canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Allow dragging
+        if (!isDraggable) return;
+
         _canvasGroup.alpha = 0.6f;
-        _canvasGroup.blocksRaycasts = false; // Disable raycast blocking
+        _canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Update position to follow cursor
+        if (!isDraggable) return;
+
         RectTransformUtility.ScreenPointToWorldPointInRectangle(
             _rectTransform.parent as RectTransform,
             eventData.position,
             eventData.pressEventCamera,
             out Vector3 worldPosition
         );
-
         _rectTransform.position = worldPosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // Restore defaults
+        if (!isDraggable) return;
+
         _canvasGroup.alpha = 1f;
         _canvasGroup.blocksRaycasts = true;
     }

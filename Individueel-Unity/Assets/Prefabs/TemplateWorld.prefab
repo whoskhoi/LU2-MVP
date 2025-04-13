@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7ceb6cfe28f6648b262b4cf79e4280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDraggable: 1
 --- !u!1 &2372217802341817932
 GameObject:
   m_ObjectHideFlags: 0
