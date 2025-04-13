@@ -59,7 +59,7 @@ namespace IndividueelProject.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occured while creating the world." + ex);
+                return StatusCode(500, "An error occured while creating the world. you donut" + ex);
             }
         }
 
