@@ -15,8 +15,8 @@ namespace IndividueelProject.WebApi.Repositories
         public void CreateWorld(WorldModel worldData)
         {
             var sqlquery = @"
-                INSERT INTO Worlds (Name)
-                VALUES (@Name)";
+                INSERT INTO Worlds (Name, OwnerId)
+                VALUES (@Name, @OwnerId)";
             dbConnection.Execute(sqlquery, worldData);
         }
 
