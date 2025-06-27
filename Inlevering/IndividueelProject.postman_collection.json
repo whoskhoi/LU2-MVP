@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "6c658640-ff4c-4bd9-b360-411e9c60f5bc",
+		"name": "IndividueelProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43993702",
+		"_collection_link": "https://khoi-1611749.postman.co/workspace/khoi's-Workspace~18f6f7e9-6743-4c76-8fd5-1021fface132/collection/43993702-6c658640-ff4c-4bd9-b360-411e9c60f5bc?action=share&source=collection_link&creator=43993702"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n  \"name\": \"string\",\r\n  \"ownerId\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://avansict2232301.azurewebsites.net/api/world",
+					"protocol": "https",
+					"host": [
+						"avansict2232301",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"world"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
