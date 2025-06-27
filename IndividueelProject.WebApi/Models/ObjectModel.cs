@@ -3,7 +3,7 @@ namespace IndividueelProject.WebApi.Models
 {
     public class ObjectModel
     {
-        
+       
         public int Id { get; set; }
         public int WorldId { get; set; }
         public string Type { get; set; }
